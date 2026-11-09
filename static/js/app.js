@@ -1,49 +1,49 @@
 (() => {
-  const button = document.querySelector('#verify');
+  const challengeView = document.querySelector('#challenge-view');
+  const errorView = document.querySelector('#error-view');
+  const verify = document.querySelector('#verify');
   const checkbox = document.querySelector('#checkbox');
   const spinner = document.querySelector('#spinner');
-  const cross = document.querySelector('#cross');
-  const message = document.querySelector('#verify-message');
-  const errorBox = document.querySelector('#error-box');
-  const attemptsLabel = document.querySelector('#attempts');
-  const requestId = document.querySelector('#request-id');
-  const globalDenied = document.querySelector('#global-denied');
-  let attempts = 0;
-  let busy = false;
+  const checkmark = document.querySelector('#checkmark');
+  const verifyState = document.querySelector('#verify-state');
+  const challengeRay = document.querySelector('#challenge-ray');
+  const errorRay = document.querySelector('#error-ray');
+  const retry = document.querySelector('#retry');
+  const revealIp = document.querySelector('#reveal-ip');
+  const fakeIp = document.querySelector('#fake-ip');
 
-  const makeRequestId = () => `CF-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-  requestId.textContent = makeRequestId();
+  const newRayId = () => {
+    const bytes = new Uint8Array(8);
+    crypto.getRandomValues(bytes);
+    return [...bytes].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  };
 
-  button.addEventListener('click', () => {
-    if (busy) return;
-    busy = true;
-    button.disabled = true;
-    errorBox.classList.add('hidden');
-    cross.classList.add('hidden');
-    spinner.classList.remove('hidden');
-    checkbox.classList.add('is-thinking', 'border-brand');
-    message.textContent = 'Menselijkheid analyseren…';
+  const resetChallenge = () => {
+    const rayId = newRayId();
+    challengeRay.textContent = rayId; errorRay.textContent = rayId;
+    verify.disabled = false; verifyState.textContent = 'Verify you are human';
+    checkbox.classList.remove('loading', 'success'); spinner.classList.add('hidden'); checkmark.classList.add('hidden');
+    errorView.classList.add('hidden'); challengeView.classList.remove('hidden');
+    document.title = 'Just a moment...'; window.scrollTo(0, 0);
+  };
 
+  const showError = () => {
+    challengeView.classList.add('hidden'); errorView.classList.remove('hidden');
+    document.title = 'Access denied | cloudfake.example'; window.scrollTo(0, 0);
+    document.querySelector('#error-title').focus();
+  };
+
+  verify.addEventListener('click', () => {
+    verify.disabled = true; verifyState.textContent = 'Verifying...';
+    checkbox.classList.add('loading'); spinner.classList.remove('hidden');
     window.setTimeout(() => {
-      attempts += 1;
-      spinner.classList.add('hidden');
-      cross.classList.remove('hidden');
-      checkbox.classList.remove('is-thinking', 'border-brand');
-      checkbox.classList.add('border-alert', 'bg-red-50');
-      message.textContent = attempts === 1 ? 'Dat was verdacht menselijk' : 'Nog steeds menselijk. Helaas.';
-      attemptsLabel.textContent = `${attempts} mislukte ${attempts === 1 ? 'poging' : 'pogingen'}`;
-      requestId.textContent = makeRequestId();
-      errorBox.classList.remove('hidden');
-      errorBox.classList.remove('is-shaking');
-      void errorBox.offsetWidth;
-      errorBox.classList.add('is-shaking');
-      const current = Number(globalDenied.textContent.replaceAll('.', ''));
-      globalDenied.textContent = new Intl.NumberFormat('nl-NL').format(current + 1);
-
-      window.setTimeout(() => {
-        button.disabled = false;
-        busy = false;
-      }, 450);
-    }, 1100);
+      spinner.classList.add('hidden'); checkbox.classList.remove('loading'); checkbox.classList.add('success');
+      checkmark.classList.remove('hidden'); verifyState.textContent = 'Success!';
+      window.setTimeout(showError, 650);
+    }, 1450);
   });
+
+  retry.addEventListener('click', resetChallenge);
+  revealIp.addEventListener('click', () => { revealIp.classList.add('hidden'); fakeIp.classList.remove('hidden'); });
+  resetChallenge();
 })();

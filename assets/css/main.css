@@ -1,47 +1,30 @@
 @import "tailwindcss";
 @source "../../layouts/**/*.html";
-@source "../../content/**/*.{html,md}";
 
-@theme {
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --color-ink: #111827;
-  --color-muted: #667085;
-  --color-line: #e6e9ee;
-  --color-panel: #f8fafc;
-  --color-brand: #f6821f;
-  --color-brand-dark: #d9680d;
-  --color-ok: #16865c;
-  --color-alert: #dc2626;
-}
-
-@layer base {
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { @apply m-0 bg-white font-sans text-ink antialiased; }
-  button, a { -webkit-tap-highlight-color: transparent; }
-}
-
-@layer components {
-  .service-row { @apply grid grid-cols-[1fr_auto] items-center gap-5 border-b border-line py-5 last:border-b-0; }
-  .status-dot { @apply inline-block size-2 rounded-full bg-ok shadow-[0_0_0_4px_rgba(22,134,92,.1)]; }
-  .metric { @apply rounded-xl border border-line bg-white px-5 py-4; }
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-5px); }
-  40%, 80% { transform: translateX(5px); }
-}
-
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(246, 130, 31, .28); }
-  70% { box-shadow: 0 0 0 8px rgba(246, 130, 31, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(246, 130, 31, 0); }
-}
-
-.is-shaking { animation: shake .36s ease-in-out; }
-.is-thinking { animation: pulse-ring 1s ease-in-out infinite; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-}
+@theme { --font-sans: Arial, Helvetica, sans-serif; --color-cf-orange: #f48120; --color-cf-blue: #0051c3; --color-cf-text: #313131; --color-cf-muted: #595959; }
+@layer base { * { box-sizing: border-box; } html, body { min-height: 100%; } body { margin: 0; background: #fff; color: var(--color-cf-text); font-family: Arial, Helvetica, sans-serif; } button { font: inherit; } }
+.hidden { display: none !important; }
+.challenge-view { min-height: 100vh; display: flex; flex-direction: column; }
+.challenge-shell { width: min(90%, 720px); margin: 0 auto; padding: 20vh 0 80px; flex: 1; }
+.challenge-shell h1 { margin: 0 0 28px; font-size: 40px; line-height: 1.15; font-weight: 500; letter-spacing: -.6px; }
+.challenge-shell h2 { margin: 0 0 14px; font-size: 24px; line-height: 1.3; font-weight: 500; }
+.intro { max-width: 650px; margin: 0 0 28px; color: #404040; font-size: 16px; line-height: 1.55; }
+.turnstile { width: 350px; min-height: 88px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #d3d3d3; border-radius: 4px; background: #fafafa; box-shadow: 0 1px 4px rgba(0,0,0,.12); overflow: hidden; }
+.verify-control { align-self: stretch; display: flex; align-items: center; gap: 13px; flex: 1; border: 0; background: transparent; padding: 16px 8px 16px 14px; color: #222; text-align: left; cursor: pointer; font-size: 15px; }
+.verify-control:focus-visible { outline: 3px solid rgba(0,81,195,.4); outline-offset: -3px; }.verify-control:disabled { cursor: wait; }
+.fake-checkbox { width: 28px; height: 28px; flex: 0 0 28px; display: grid; place-items: center; border: 2px solid #8c8c8c; border-radius: 2px; background: #fff; }
+.fake-checkbox.loading { border-color: transparent; }.fake-checkbox.success { border-color: #20a464; background: #20a464; }
+.spinner { width: 28px; height: 28px; fill: none; stroke: #1f70c1; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 54 30; animation: spin .75s linear infinite; }
+.checkmark { width: 21px; height: 21px; fill: none; stroke: #fff; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.widget-brand { width: 92px; align-self: stretch; display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid #e4e4e4; color: #555; }
+.widget-brand svg { width: 50px; height: 30px; fill: var(--color-cf-orange); }.widget-brand strong { margin-top: 1px; font-size: 9px; letter-spacing: .3px; }.widget-brand small { margin-top: 3px; font-size: 8px; color: #777; }
+.challenge-note { margin: 24px 0 0; color: var(--color-cf-muted); font-size: 13px; line-height: 1.5; }.noscript { color: #b42318; }
+.challenge-footer { border-top: 1px solid #e5e5e5; padding: 22px 16px 28px; text-align: center; color: #666; font-size: 12px; line-height: 1.6; }.challenge-footer p { margin: 1px 0; }.challenge-footer strong, .error-footer strong { color: var(--color-cf-orange); }.disclaimer { color: #919191 !important; font-size: 10px; }
+.error-view { min-height: 100vh; display: flex; flex-direction: column; }.error-shell { width: min(90%, 960px); margin: 0 auto; padding: 12vh 0 70px; flex: 1; }
+.error-header { display: flex; align-items: center; justify-content: space-between; gap: 30px; }.error-header h1 { margin: 0 0 6px; color: #222; font-size: 60px; line-height: 1; font-weight: 300; letter-spacing: -2px; }.error-header h1:focus { outline: none; }.error-code { margin: 0; color: #777; font-size: 22px; font-weight: 300; }.error-code strong { color: #555; font-weight: 400; }.error-cloud svg { width: 140px; fill: var(--color-cf-orange); }
+.error-divider { height: 1px; margin: 38px 0 36px; background: #d9d9d9; }.error-content { max-width: 720px; }.error-content h2 { margin: 30px 0 10px; font-size: 24px; font-weight: 400; }.error-content p { margin: 0; color: #555; font-size: 16px; line-height: 1.6; }
+.retry-button { margin-top: 30px; border: 1px solid #b9b9b9; border-radius: 3px; background: #f5f5f5; padding: 10px 18px; color: #333; cursor: pointer; box-shadow: 0 1px 1px rgba(0,0,0,.05); }.retry-button:hover { background: #ececec; }.retry-button:focus-visible { outline: 3px solid rgba(0,81,195,.35); outline-offset: 2px; }
+.error-footer { border-top: 1px solid #dedede; background: #f3f3f3; padding: 22px 16px; color: #777; font-size: 12px; text-align: center; }.error-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }.error-footer p { margin: 0; }.error-footer button { border: 0; border-bottom: 1px dotted #666; background: transparent; padding: 0; color: #555; cursor: pointer; font-size: inherit; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 620px) { .challenge-shell { padding-top: 13vh; }.challenge-shell h1 { font-size: 30px; }.turnstile { width: 100%; max-width: 350px; }.error-shell { padding-top: 9vh; }.error-header h1 { font-size: 45px; }.error-cloud { display: none; }.footer-separator { display: none; }.error-footer-inner { flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 1.5s; } }

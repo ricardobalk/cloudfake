@@ -1,97 +1,50 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ site.Params.description }}">
-  <meta name="theme-color" content="#ffffff">
-  <title>{{ site.Title }}</title>
-  <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
-  <script src="{{ "js/app.js" | relURL }}" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.Params.description }}"><meta name="theme-color" content="#ffffff">
+  <title>Just a moment...</title><link rel="stylesheet" href="{{ "css/main.css" | relURL }}"><script src="{{ "js/app.js" | relURL }}" defer></script>
 </head>
-<body>
-  <header class="border-b border-line bg-white">
-    <div class="mx-auto flex h-18 max-w-5xl items-center justify-between px-5 sm:px-8">
-      <a href="#" class="flex items-center gap-3 no-underline" aria-label="Cloudfake status home">
-        <span class="relative grid size-9 place-items-center overflow-hidden rounded-lg bg-brand text-white shadow-sm" aria-hidden="true">
-          <svg viewBox="0 0 32 32" class="size-7 fill-current"><path d="M7.2 22.7h17.9a4.1 4.1 0 0 0 .2-8.2 7.3 7.3 0 0 0-13.7-2.8 5.6 5.6 0 0 0-4.4 11Z"/><path d="M3.8 23.2h12.6a3.4 3.4 0 0 0 0-6.8 5.7 5.7 0 0 0-10.6-1.9 4.4 4.4 0 0 0-2 8.7Z" opacity=".72"/></svg>
-        </span>
-        <span class="text-[17px] font-bold tracking-tight">Cloudfake <span class="font-normal text-muted">Status</span></span>
-      </a>
-      <a href="#systems" class="text-sm font-medium text-muted transition hover:text-ink focus-visible:rounded focus-visible:outline-2 focus-visible:outline-brand">Systemen</a>
+<body><main>
+  <section id="challenge-view" class="challenge-view" aria-labelledby="challenge-title">
+    <div class="challenge-shell">
+      <h1 id="challenge-title">cloudfake.example</h1>
+      <h2>Performing security verification</h2>
+      <p class="intro">This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.</p>
+      <div id="turnstile" class="turnstile" aria-live="polite">
+        <button id="verify" class="verify-control" type="button" aria-describedby="verify-state">
+          <span id="checkbox" class="fake-checkbox" aria-hidden="true">
+            <svg id="spinner" class="spinner hidden" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
+            <svg id="checkmark" class="checkmark hidden" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>
+          </span><span id="verify-state">Verify you are human</span>
+        </button>
+        <div class="widget-brand" aria-hidden="true">
+          <svg viewBox="0 0 48 28"><path d="M18.8 21.7h20.6a5.1 5.1 0 0 0 .2-10.2A8.6 8.6 0 0 0 23.5 8a6.6 6.6 0 0 0-4.7 13.7Z"/><path d="M6.2 22.2h19.4a4.4 4.4 0 0 0 0-8.8 7.2 7.2 0 0 0-13.5-2.3 5.6 5.6 0 0 0-5.9 11.1Z" opacity=".58"/></svg>
+          <strong>CLOUDFAKE</strong><small>Privacy · Help</small>
+        </div>
+      </div>
+      <p class="challenge-note">cloudfake.example needs to review the security of your connection before proceeding.</p>
+      <noscript><p class="noscript">Enable JavaScript and cookies to continue.</p></noscript>
     </div>
-  </header>
+    <footer class="challenge-footer"><p>Ray ID: <span id="challenge-ray">0000000000000000</span></p><p>Performance &amp; security by <strong>Cloudfake</strong></p><p class="disclaimer">Parody demonstration — not affiliated with Cloudflare, Inc.</p></footer>
+  </section>
 
-  <main>
-    <section class="mx-auto max-w-5xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20">
-      <div class="max-w-2xl">
-        <p class="mb-4 flex items-center gap-2 text-sm font-semibold text-ok"><span class="status-dot"></span> Alle systemen operationeel</p>
-        <h1 class="m-0 text-4xl font-bold tracking-[-.035em] text-ink sm:text-5xl">Is het internet er nog?</h1>
-        <p class="mt-5 max-w-xl text-lg leading-8 text-muted">Volgens onze systemen wel. Volgens de checkbox hieronder ligt dat ingewikkelder.</p>
+  <section id="error-view" class="error-view hidden" aria-labelledby="error-title">
+    <div class="error-shell">
+      <header class="error-header">
+        <div><h1 id="error-title" tabindex="-1">Access denied</h1><p class="error-code">Error code <strong>1020</strong></p></div>
+        <div class="error-cloud" aria-hidden="true"><svg viewBox="0 0 120 70"><path d="M42 57h61a15 15 0 0 0 .7-30A25.4 25.4 0 0 0 56 17a19.5 19.5 0 0 0-14 40Z"/><path d="M5 58h57a13 13 0 0 0 0-26 21 21 0 0 0-39.5-7A16.5 16.5 0 0 0 5 58Z" opacity=".55"/></svg></div>
+      </header>
+      <div class="error-divider"></div>
+      <div class="error-content">
+        <h2>What happened?</h2><p>This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution.</p>
+        <h2>What can I do to resolve this?</h2><p>You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudfake Ray ID found at the bottom of this page.</p>
+        <button id="retry" type="button" class="retry-button">Try again</button>
       </div>
-
-      <div class="mt-10 overflow-hidden rounded-2xl border border-line bg-panel shadow-[0_12px_35px_rgba(16,24,40,.07)] sm:mt-12">
-        <div class="border-b border-line bg-white px-5 py-4 sm:px-7">
-          <div class="flex items-center justify-between gap-4">
-            <div>
-              <p class="m-0 text-sm font-semibold text-ink">Beveiligingscontrole</p>
-              <p class="mb-0 mt-1 text-sm text-muted">Bevestig dat je geen robot bent om verder te gaan.</p>
-            </div>
-            <span class="rounded-full bg-[#fff2e7] px-3 py-1 text-xs font-bold text-brand-dark">Verplicht</span>
-          </div>
-        </div>
-
-        <div class="p-5 sm:p-7">
-          <button id="verify" type="button" class="group flex w-full cursor-pointer items-center gap-4 rounded-xl border border-[#cfd5dd] bg-white p-5 text-left shadow-sm transition hover:border-[#aeb7c4] hover:shadow-md focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand" aria-describedby="verify-message" aria-live="polite">
-            <span id="checkbox" class="grid size-7 shrink-0 place-items-center rounded border-2 border-[#9aa4b2] bg-white transition group-hover:border-brand" aria-hidden="true">
-              <svg id="spinner" viewBox="0 0 24 24" class="hidden size-5 animate-spin fill-none stroke-brand stroke-2"><circle cx="12" cy="12" r="9" class="opacity-25"/><path d="M21 12a9 9 0 0 0-9-9" class="opacity-100"/></svg>
-              <svg id="cross" viewBox="0 0 24 24" class="hidden size-5 fill-none stroke-alert stroke-[2.5]"><path d="m7 7 10 10M17 7 7 17"/></svg>
-            </span>
-            <span class="min-w-0 flex-1">
-              <span class="block text-[15px] font-semibold text-ink">Ik ben geen robot</span>
-              <span id="verify-message" class="mt-1 block text-sm text-muted">Klik om jezelf te verifiëren</span>
-            </span>
-            <span class="hidden shrink-0 text-right text-[10px] font-semibold uppercase leading-4 tracking-wider text-[#98a2b3] sm:block">Cloudfake<br>Turnstile-ish</span>
-          </button>
-          <div id="error-box" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
-            <span class="font-semibold">Verificatie geweigerd.</span> Te menselijk gedrag gedetecteerd. Probeer het gerust nog eens; het helpt niet.
-          </div>
-          <div class="mt-5 flex items-center justify-between gap-3 text-xs text-muted">
-            <span id="attempts">0 mislukte pogingen</span>
-            <span>Request ID: <span id="request-id" class="font-mono">CF-000000</span></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="systems" class="border-y border-line bg-panel/70">
-      <div class="mx-auto max-w-5xl px-5 py-12 sm:px-8 sm:py-16">
-        <div class="mb-7 flex items-end justify-between gap-5">
-          <div>
-            <p class="mb-2 text-xs font-bold uppercase tracking-[.16em] text-brand-dark">Live overzicht</p>
-            <h2 class="m-0 text-2xl font-bold tracking-tight">Netwerkstatus</h2>
-          </div>
-          <p class="m-0 text-sm text-muted">Bijgewerkt <time id="updated">zojuist</time></p>
-        </div>
-        <div class="rounded-2xl border border-line bg-white px-5 sm:px-7">
-          <div class="service-row"><div><h3 class="m-0 text-[15px] font-semibold">Edge Network</h3><p class="mb-0 mt-1 text-sm text-muted">Wereldwijde verkeersafhandeling</p></div><span class="flex items-center gap-2 text-sm font-semibold text-ok"><span class="status-dot"></span> Operationeel</span></div>
-          <div class="service-row"><div><h3 class="m-0 text-[15px] font-semibold">DNS</h3><p class="mb-0 mt-1 text-sm text-muted">Autoritatieve naamservers</p></div><span class="flex items-center gap-2 text-sm font-semibold text-ok"><span class="status-dot"></span> Operationeel</span></div>
-          <div class="service-row"><div><h3 class="m-0 text-[15px] font-semibold">Bot Management</h3><p class="mb-0 mt-1 text-sm text-muted">Menselijke bezoekers frustreren</p></div><span class="flex items-center gap-2 text-sm font-semibold text-ok"><span class="status-dot"></span> Overactief</span></div>
-          <div class="service-row"><div><h3 class="m-0 text-[15px] font-semibold">Status API</h3><p class="mb-0 mt-1 text-sm text-muted">Ironisch genoeg volledig stabiel</p></div><span class="flex items-center gap-2 text-sm font-semibold text-ok"><span class="status-dot"></span> Operationeel</span></div>
-        </div>
-
-        <div class="mt-6 grid gap-4 sm:grid-cols-3">
-          <div class="metric"><p class="m-0 text-xs font-semibold uppercase tracking-wider text-muted">Uptime</p><p class="mb-0 mt-2 text-2xl font-bold tracking-tight">99,999%</p></div>
-          <div class="metric"><p class="m-0 text-xs font-semibold uppercase tracking-wider text-muted">Latency</p><p class="mb-0 mt-2 text-2xl font-bold tracking-tight">12 ms</p></div>
-          <div class="metric"><p class="m-0 text-xs font-semibold uppercase tracking-wider text-muted">Geweigerde mensen</p><p id="global-denied" class="mb-0 mt-2 text-2xl font-bold tracking-tight">8.491.052</p></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
-    <p class="m-0">© {{ now.Year }} Cloudfake. Geen echte dienst. Geen echte storing.</p>
-    <p class="m-0">Parodieproject — niet verbonden aan Cloudflare, Inc.</p>
-  </footer>
-</body>
-</html>
+    </div>
+    <footer class="error-footer">
+      <div class="error-footer-inner"><p>Cloudfake Ray ID: <strong id="error-ray">0000000000000000</strong></p><span class="footer-separator">•</span><p>Your IP: <button id="reveal-ip" type="button">Click to reveal</button><span id="fake-ip" class="hidden"> 203.0.113.42</span></p><span class="footer-separator">•</span><p>Performance &amp; security by <strong>Cloudfake</strong></p></div>
+      <p class="disclaimer">Parody demonstration — no personal data is collected.</p>
+    </footer>
+  </section>
+</main></body></html>
