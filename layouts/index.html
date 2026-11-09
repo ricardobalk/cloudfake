@@ -1,50 +1,75 @@
+{{ define "cloud-icon" }}<svg viewBox="0 0 120 80" aria-hidden="true"><path fill="currentColor" d="M25 63h72a18 18 0 0 0 1-36 28 28 0 0 0-52-9 21 21 0 0 0-21 45Z"/></svg>{{ end }}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ site.Params.description }}"><meta name="theme-color" content="#ffffff">
-  <title>Just a moment...</title><link rel="stylesheet" href="{{ "css/main.css" | relURL }}"><script src="{{ "js/app.js" | relURL }}" defer></script>
+  <meta name="description" content="A Cloudfake security challenge and error page simulator.">
+  <meta name="color-scheme" content="light dark">
+  <title>Just a moment...</title>
+  <script>try{const t=localStorage.getItem('cloudfake-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}</script>
+  {{ $css := resources.Get "generated/main.css" | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{ $js := resources.FromString "js/app.js" (readFile "static/js/app.js") | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 </head>
-<body><main>
-  <section id="challenge-view" class="challenge-view" aria-labelledby="challenge-title">
-    <div class="challenge-shell">
-      <h1 id="challenge-title">cloudfake.example</h1>
-      <h2>Performing security verification</h2>
-      <p class="intro">This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.</p>
-      <div id="turnstile" class="turnstile" aria-live="polite">
-        <button id="verify" class="verify-control" type="button" aria-describedby="verify-state">
-          <span id="checkbox" class="fake-checkbox" aria-hidden="true">
-            <svg id="spinner" class="spinner hidden" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
-            <svg id="checkmark" class="checkmark hidden" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>
-          </span><span id="verify-state">Verify you are human</span>
-        </button>
-        <div class="widget-brand" aria-hidden="true">
-          <svg viewBox="0 0 48 28"><path d="M18.8 21.7h20.6a5.1 5.1 0 0 0 .2-10.2A8.6 8.6 0 0 0 23.5 8a6.6 6.6 0 0 0-4.7 13.7Z"/><path d="M6.2 22.2h19.4a4.4 4.4 0 0 0 0-8.8 7.2 7.2 0 0 0-13.5-2.3 5.6 5.6 0 0 0-5.9 11.1Z" opacity=".58"/></svg>
-          <strong>CLOUDFAKE</strong><small>Privacy · Help</small>
+<body>
+  <aside class="controls" aria-label="Demo settings">
+    <label>Result <select id="result-select">
+      <option value="blocked">You have been blocked</option><option value="1020">1020 · Access denied</option>
+      <option value="502">502 · Bad gateway</option><option value="520">520 · Unknown error</option>
+      <option value="521">521 · Web server is down</option><option value="522">522 · Connection timed out</option>
+      <option value="523">523 · Origin is unreachable</option><option value="524">524 · A timeout occurred</option>
+      <option value="525">525 · SSL handshake failed</option><option value="526">526 · Invalid SSL certificate</option>
+    </select></label>
+    <label>Theme <select id="theme-select"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    <button id="preview" type="button">Preview</button>
+  </aside>
+  <main>
+    <section id="challenge-view" class="challenge-view" aria-labelledby="challenge-title">
+      <div class="challenge-shell">
+        <h1 id="challenge-title" tabindex="-1">cloudfake.example</h1>
+        <h2>Verifying you are human. This may take a few seconds.</h2>
+        <div class="turnstile" aria-live="polite">
+          <button id="verify" class="verify-control" type="button">
+            <span id="checkbox" class="fake-checkbox" aria-hidden="true">
+              <svg id="spinner" class="spinner hidden" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
+              <svg id="checkmark" class="checkmark hidden" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>
+            </span><span id="verify-state">Verify you are human</span>
+          </button>
+          <div class="widget-brand" aria-hidden="true">{{ template "cloud-icon" }}<strong>CLOUDFAKE</strong><small>Privacy · Terms</small></div>
+        </div>
+        <p class="challenge-note">cloudfake.example needs to review the security of your connection before proceeding.</p>
+        <noscript><p>Enable JavaScript to continue.</p></noscript>
+      </div>
+      <footer class="challenge-footer"><p>Ray ID: <span data-ray></span></p><p>Performance &amp; security by <strong>Cloudfake</strong></p><p class="disclaimer">Parody demonstration · Not affiliated with Cloudflare</p></footer>
+    </section>
+
+    <section id="error-view" class="error-view hidden" aria-labelledby="error-title">
+      <header class="error-header content-width">
+        <h1 id="error-title" tabindex="-1">Sorry, you have been blocked</h1>
+        <p id="error-subtitle" class="error-subtitle">You are unable to access cloudfake.example</p>
+        <div id="error-meta" class="error-meta hidden"><span id="error-code" class="code-badge"></span><p>Visit <span class="link-text">cloudfake.example</span> for more information.</p><time id="error-time"></time></div>
+      </header>
+
+      <div id="blocked-illustration" class="status-band blocked-band" aria-hidden="true">
+        <div class="browser-window"><div class="browser-bar"><i></i><i></i><i></i><span></span></div><div class="blocked-symbol">×</div></div>
+      </div>
+
+      <div id="diagnostics" class="status-band hidden">
+        <div class="diagnostics-grid content-width">
+          <div class="diagnostic"><div class="diagnostic-icon"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="22" y="8" width="76" height="61" rx="5" fill="none" stroke="currentColor" stroke-width="8"/><path d="M22 23h76" stroke="currentColor" stroke-width="5"/><circle cx="31" cy="16" r="2" fill="currentColor"/><circle cx="39" cy="16" r="2" fill="currentColor"/></svg><span class="status-symbol good" aria-hidden="true">✓</span></div><p class="location">You</p><h2>Browser</h2><p class="state good-text">Working</p></div>
+          <div class="diagnostic"><div class="diagnostic-icon">{{ template "cloud-icon" }}<span class="status-symbol good" aria-hidden="true">✓</span></div><p class="location">Amsterdam</p><h2>Cloudfake</h2><p class="state good-text">Working</p></div>
+          <div class="diagnostic host"><div class="diagnostic-icon"><svg viewBox="0 0 120 80" aria-hidden="true"><path d="m29 9-10 33v23a5 5 0 0 0 5 5h72a5 5 0 0 0 5-5V42L91 9Z" fill="currentColor"/><rect x="26" y="48" width="68" height="14" rx="2" fill="var(--band)"/><circle cx="86" cy="55" r="3" fill="currentColor"/></svg><span class="status-symbol bad" aria-hidden="true">×</span></div><p class="location">cloudfake.example</p><h2>Host</h2><p class="state bad-text">Error</p></div>
         </div>
       </div>
-      <p class="challenge-note">cloudfake.example needs to review the security of your connection before proceeding.</p>
-      <noscript><p class="noscript">Enable JavaScript and cookies to continue.</p></noscript>
-    </div>
-    <footer class="challenge-footer"><p>Ray ID: <span id="challenge-ray">0000000000000000</span></p><p>Performance &amp; security by <strong>Cloudfake</strong></p><p class="disclaimer">Parody demonstration — not affiliated with Cloudflare, Inc.</p></footer>
-  </section>
 
-  <section id="error-view" class="error-view hidden" aria-labelledby="error-title">
-    <div class="error-shell">
-      <header class="error-header">
-        <div><h1 id="error-title" tabindex="-1">Access denied</h1><p class="error-code">Error code <strong>1020</strong></p></div>
-        <div class="error-cloud" aria-hidden="true"><svg viewBox="0 0 120 70"><path d="M42 57h61a15 15 0 0 0 .7-30A25.4 25.4 0 0 0 56 17a19.5 19.5 0 0 0-14 40Z"/><path d="M5 58h57a13 13 0 0 0 0-26 21 21 0 0 0-39.5-7A16.5 16.5 0 0 0 5 58Z" opacity=".55"/></svg></div>
-      </header>
-      <div class="error-divider"></div>
-      <div class="error-content">
-        <h2>What happened?</h2><p>This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution.</p>
-        <h2>What can I do to resolve this?</h2><p>You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudfake Ray ID found at the bottom of this page.</p>
-        <button id="retry" type="button" class="retry-button">Try again</button>
+      <div class="explanation content-width">
+        <div><h2 id="reason-title">Why have I been blocked?</h2><p id="reason"></p></div>
+        <div><h2 id="resolution-title">What can I do to resolve this?</h2><div id="resolution"></div></div>
       </div>
-    </div>
-    <footer class="error-footer">
-      <div class="error-footer-inner"><p>Cloudfake Ray ID: <strong id="error-ray">0000000000000000</strong></p><span class="footer-separator">•</span><p>Your IP: <button id="reveal-ip" type="button">Click to reveal</button><span id="fake-ip" class="hidden"> 203.0.113.42</span></p><span class="footer-separator">•</span><p>Performance &amp; security by <strong>Cloudfake</strong></p></div>
-      <p class="disclaimer">Parody demonstration — no personal data is collected.</p>
-    </footer>
-  </section>
-</main></body></html>
+      <div class="retry-row content-width"><button id="retry" type="button">Try again</button></div>
+      <footer class="error-footer content-width"><div class="footer-details"><p>Cloudfake Ray ID: <strong data-ray></strong></p><span class="separator">•</span><p>Your IP: <button id="reveal-ip" type="button">Click to reveal</button><span id="fake-ip" class="hidden">203.0.113.42</span></p><span class="separator">•</span><p>Performance &amp; security by <span class="link-text">Cloudfake</span></p></div><p class="disclaimer">Parody demonstration · No personal data collected</p></footer>
+    </section>
+  </main>
+</body>
+</html>

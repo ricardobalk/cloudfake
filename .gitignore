@@ -1,6 +1,7 @@
 /node_modules/
 /public/
 /resources/
+/assets/generated/
 /.tools/
 /static/css/main.css
 .hugo_build.lock

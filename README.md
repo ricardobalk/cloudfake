@@ -1,6 +1,10 @@
 # Cloudfake Status
 
-Een fictieve statuspagina, gebouwd met Hugo en Tailwind CSS. De verificatiecheckbox weigert iedere poging met toenemend droge feedback.
+Een fictieve beveiligingspagina, gebouwd met Hugo en Tailwind CSS. Na de verificatie verschijnt een zelfgekozen blokkade- of foutpagina.
+
+Kies bovenaan tussen een blokkade, Error 1020 en serverfouten 502 en 520–526.
+Met Preview bekijk je het resultaat direct. Het thema volgt standaard je systeem;
+je kunt ook Light of Dark kiezen. Beide voorkeuren worden lokaal onthouden.
 
 ## Ontwikkelen
 
