@@ -1,0 +1,10 @@
+baseURL = "/"
+languageCode = "nl-NL"
+title = "Cloudfake Status"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT"]
+
+[params]
+  description = "Een fictieve statuspagina met een eigenzinnige verificatiecheck."
+
+[build]
+  writeStats = true

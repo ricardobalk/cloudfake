@@ -1,0 +1,16 @@
+{
+  "name": "cloudfake-status",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "setup:hugo": "bash scripts/install-hugo.sh",
+    "dev": ".tools/bin/hugo server --bind 0.0.0.0 --port 1313 --disableFastRender",
+    "build:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/main.css --minify",
+    "build": "npm run build:css && .tools/bin/hugo --minify",
+    "check": ".tools/bin/hugo --printPathWarnings --panicOnWarning --renderToMemory"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}

@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@source "../../layouts/**/*.html";
+@source "../../content/**/*.{html,md}";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --color-ink: #111827;
+  --color-muted: #667085;
+  --color-line: #e6e9ee;
+  --color-panel: #f8fafc;
+  --color-brand: #f6821f;
+  --color-brand-dark: #d9680d;
+  --color-ok: #16865c;
+  --color-alert: #dc2626;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply m-0 bg-white font-sans text-ink antialiased; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .service-row { @apply grid grid-cols-[1fr_auto] items-center gap-5 border-b border-line py-5 last:border-b-0; }
+  .status-dot { @apply inline-block size-2 rounded-full bg-ok shadow-[0_0_0_4px_rgba(22,134,92,.1)]; }
+  .metric { @apply rounded-xl border border-line bg-white px-5 py-4; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(246, 130, 31, .28); }
+  70% { box-shadow: 0 0 0 8px rgba(246, 130, 31, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(246, 130, 31, 0); }
+}
+
+.is-shaking { animation: shake .36s ease-in-out; }
+.is-thinking { animation: pulse-ring 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
