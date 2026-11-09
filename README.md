@@ -1,0 +1,2 @@
+# cloudfake
+Fake Cloudflare pages.
