@@ -5,4 +5,4 @@ set -euo pipefail
   --input ./assets/css/main.css \
   --output ./static/css/main.css \
   --minify
-./.tools/bin/hugo --minify
+./.tools/bin/hugo --minify "$@"
