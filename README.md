@@ -5,16 +5,17 @@ Een fictieve statuspagina, gebouwd met Hugo en Tailwind CSS. De verificatiecheck
 ## Ontwikkelen
 
 ```bash
-npm install
-npm run setup:hugo
-npm run build:css
-npm run dev
+./scripts/setup.sh
+./scripts/dev.sh
 ```
 
 ## Productiebuild
 
 ```bash
-npm run build
+./scripts/build.sh
 ```
 
 De statische site wordt naar `public/` geschreven.
+
+Hugo en Tailwind draaien als lokale standalone binaries. Node.js en npm zijn
+niet nodig.
